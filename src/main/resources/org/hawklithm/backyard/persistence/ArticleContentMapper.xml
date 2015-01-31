@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.hawklithm.backyard.persistence.ArticleContentMapper">
+    <cache/>
+    <sql id="article_detail_field">
+        article_code,
+        article_content,
+        gmt_created,
+        gmt_modified,
+        sort_id,
+        status
+    </sql>
+    <sql id="article_detail_table">
+        article_detail
+    </sql>
+    <select id="queryByArticleCode" resultType="java.util.List" parameterType="java.lang.String">
+        select
+        <include refid="article_detail_field"/>
+        from
+        <include refid="article_detail_table"/>
+        where
+        article_code = #{articleCode} and creator_id = #{creatorId}
+    </select>
+
+    <insert id="saveArticleContent" parameterType="java.util.Map">
+        INSERT INTO <include refid="article_detail_table"/>
+        (
+        <include refid="article_detail_field"/>
+        )
+        VALUES (
+          #{articleCode},
+          #{articleContent},
+          now(),
+          now(),
+          #{sortId},
+          #{status}
+        )
+    </insert>
+    <update id="updateArticleContentByArticleCodeAndSortId" parameterType="org.hawklithm.backyard.domain.dataobject.ArticleContentDO">
+        UPDATE ${article_detail_table}
+        <set>
+            <if test="articleContent != null">
+                article_content = #{articleContent},
+            </if>
+            gmt_modified = now(),
+            <if test="md5Tag != null">
+                md5_tag = #{md5Tag}
+            </if>
+            <if test="status != null">
+                status = #{status}
+            </if>
+        </set>
+        <where>
+          article_code = #{articleCode}
+            <if test="sortId != null">
+                sort_id = #{sortId}
+            </if>
+        </where>
+    </update>
+    <select id="queryArticleContentCountByArticleCode" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select count(*) from
+        <include refid="article_detail_table"/>
+        where article_code = #{articleCode}
+    </select>
+    <update id="deleteArticleContentByArticleCodeLogically" parameterType="java.lang.String">
+        update
+        <include refid="article_detail_table"/>
+        set
+          status = -1
+        where article_code = #{articleCode}
+    </update>
+</mapper>
