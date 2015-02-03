@@ -2,8 +2,10 @@ package org.hawklithm.backyard.config;
 
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
@@ -17,8 +19,11 @@ import javax.sql.DataSource;
 @Configuration
 @MapperScan("org.hawklithm.backyard.persistence")
 @EnableTransactionManagement
+@PropertySource("file:/home/app.properties")
 public class DataConfig {
     private static SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
+    @Value("${test}")
+    String test;
     static {
         dataSource.setDriverClass(org.h2.Driver.class);
         dataSource.setUsername("sa");
@@ -61,6 +66,7 @@ public class DataConfig {
 //        jdbcTemplate.execute("create table users(id serial, firstName varchar(255), lastName varchar(255), email varchar(255))");
 //        jdbcTemplate.update("INSERT INTO users(firstName, lastName, email) values (?,?,?)", "Mike", "Lanyon", "lanyonm@gmail.com");
 
+        System.out.println(test);
         return dataSource;
     }
 
