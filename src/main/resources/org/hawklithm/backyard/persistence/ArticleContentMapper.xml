@@ -44,9 +44,6 @@
                 article_content = #{articleContent},
             </if>
             gmt_modified = now(),
-            <if test="md5Tag != null">
-                md5_tag = #{md5Tag}
-            </if>
             <if test="status != null">
                 status = #{status}
             </if>
@@ -63,11 +60,9 @@
         <include refid="article_detail_table"/>
         where article_code = #{articleCode}
     </select>
-    <update id="deleteArticleContentByArticleCodeLogically" parameterType="java.lang.String">
-        update
+    <delete id="deleteArticleContentByArticleCodePhysically" parameterType="java.lang.String">
+        delete from
         <include refid="article_detail_table"/>
-        set
-          status = -1
         where article_code = #{articleCode}
-    </update>
+    </delete>
 </mapper>

@@ -13,7 +13,8 @@ public interface ArticleContentMapper{
 
     int saveArticleContent(ArticleContentDO articleContentDO);
 
-    int deleteArticleContentByArticleCodeLogically(String articleCode);
+
+    int deleteArticleContentByArticleCodePhysically(String articleCode);
 
     int queryArticleContentCountByArticleCode(String articleCode);
 

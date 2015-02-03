@@ -60,6 +60,6 @@ public class ArticleContentDaoImpl implements ArticleContentDAO {
     @Override
     @Transactional
     public int deleteArticleContentsByArticleCode(String code){
-        return articleContentMapper.deleteArticleContentByArticleCodeLogically(code);
+        return articleContentMapper.deleteArticleContentByArticleCodePhysically(code);
     }
 }

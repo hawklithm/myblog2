@@ -46,7 +46,16 @@ public class JUnitTest {
     }
 
     @Test
-    public void updateDataTest(){
-//        articleContentDAO.updateArticleContents();
+    public void updateDataTest() throws Exception {
+        List<ArticleContentDO> ans = articleContentDAO.queryArticleContentDOListByArticleCode("heheheheheh",1251351L);
+        for (ArticleContentDO index:ans){
+            index.setStatus(-1);
+        }
+        articleContentDAO.updateArticleContents(ans);
+    }
+
+    @Test
+    public void deletePhysically() {
+        articleContentDAO.deleteArticleContentsByArticleCode("heheheheheh");
     }
 }
