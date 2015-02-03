@@ -29,12 +29,12 @@ public class ArticleContentDaoImpl implements ArticleContentDAO {
     public int saveArticleContents(List<ArticleContentDO> contents) {
         int count = 0;
         for (ArticleContentDO content : contents) {
-            Map<String,Object> map = Maps.newHashMap();
-            map.put("articleCode",content.getArticleCode());
-            map.put("articleContent",content.getArticleContent());
-            map.put("sortId",content.getSortId());
-            map.put("status",content.getStatus());
-            count+=articleContentMapper.saveArticleContent(map);
+//            Map<String,Object> map = Maps.newHashMap();
+//            map.put("articleCode",content.getArticleCode());
+//            map.put("articleContent",content.getArticleContent());
+//            map.put("sortId",content.getSortId());
+//            map.put("status",content.getStatus());
+            count+=articleContentMapper.saveArticleContent(content);
         }
         return count;
     }

@@ -23,7 +23,7 @@
         article_code = #{articleCode} and creator_id = #{creatorId}
     </select>
 
-    <insert id="saveArticleContent" parameterType="java.util.Map">
+    <insert id="saveArticleContent" parameterType="ArticleContentDO">
         INSERT INTO <include refid="article_detail_table"/>
         (
         <include refid="article_detail_field"/>
@@ -37,7 +37,7 @@
           #{status}
         )
     </insert>
-    <update id="updateArticleContentByArticleCodeAndSortId" parameterType="org.hawklithm.backyard.domain.dataobject.ArticleContentDO">
+    <update id="updateArticleContentByArticleCodeAndSortId" parameterType="ArticleContentDO">
         UPDATE ${article_detail_table}
         <set>
             <if test="articleContent != null">

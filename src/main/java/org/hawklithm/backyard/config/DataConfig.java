@@ -18,13 +18,41 @@ import javax.sql.DataSource;
 @MapperScan("org.hawklithm.backyard.persistence")
 @EnableTransactionManagement
 public class DataConfig {
+    private static SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
+    static {
+        dataSource.setDriverClass(org.h2.Driver.class);
+        dataSource.setUsername("sa");
+        dataSource.setUrl("jdbc:h2:mem");
+        dataSource.setPassword("");
+
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+
+        System.out.println("Creating tables");
+        jdbcTemplate.execute("DROP TABLE IF EXISTS article_detail");
+        jdbcTemplate.execute("CREATE TABLE article_detail (" +
+                "  article_code varchar(1024) NOT NULL ,"+
+                "  article_content varchar(10240) DEFAULT NULL,"+
+                "  gmt_created datetime NOT NULL," +
+                "  gmt_modified datetime NOT NULL," +
+                "  sort_id int(11) NOT NULL,"+
+                "  article_id int(11) PRIMARY KEY AUTO_INCREMENT,"+
+                "  status tinyint(4) NOT NULL DEFAULT 1,"+
+                "  PRIMARY KEY (article_id)" +
+                ") ENGINE=InnoDB DEFAULT CHARSET=utf8");
+        jdbcTemplate.execute("DROP TABLE IF EXISTS `article_info`");
+        jdbcTemplate.execute("CREATE TABLE `article_info` (\n" +
+                "  `article_info_id` int(11) NOT NULL AUTO_INCREMENT,\n" +
+                "  `article_code` varchar(1024) NOT NULL,\n" +
+                "  `creator_id` int(11) NOT NULL COMMENT '作者id',\n" +
+                "  `gmt_created` datetime NOT NULL COMMENT '创建时间',\n" +
+                "  `gmt_modified` datetime NOT NULL COMMENT '修改时间',\n" +
+                "  `article_title` varchar(1024) NOT NULL COMMENT '文章标题',\n" +
+                "  `article_size` int(11) NOT NULL,\n" +
+                "  PRIMARY KEY (`article_info_id`)\n" +
+                ") ENGINE=InnoDB DEFAULT CHARSET=utf8");
+    }
     @Bean
     public DataSource dataSource() {
-        SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
-        dataSource.setDriverClass(com.mysql.jdbc.Driver.class);
-        dataSource.setUsername("root");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=utf8");
-        dataSource.setPassword("password1234");
 
         // create a table and populate some data
 //        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);

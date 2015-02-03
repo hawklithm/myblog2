@@ -11,7 +11,7 @@ import java.util.Map;
 public interface ArticleContentMapper{
     List<ArticleContentDO> queryByArticleCode(String articleCode,long creatorId);
 
-    int saveArticleContent(Map<String,Object> map);
+    int saveArticleContent(ArticleContentDO articleContentDO);
 
     int deleteArticleContentByArticleCodeLogically(String articleCode);
 

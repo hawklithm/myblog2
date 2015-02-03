@@ -15,7 +15,7 @@
     <sql id="article_info_table">
         article_info
     </sql>
-    <select id="queryArticleInfoByCreatorIdAndOffset" parameterMap="java.util.Map" resultType="org.hawklithm.backyard.domain.dataobject.ArticleInfoDO">
+    <select id="queryArticleInfoByCreatorIdAndOffset" parameterType="java.util.Map" resultType="org.hawklithm.backyard.domain.dataobject.ArticleInfoDO">
         SELECT
         <include refid="article_info_field"/>
         from
@@ -25,14 +25,14 @@
         </where>
         limit #{offset},#{length} order by gmt_created desc
     </select>
-    <select id="queryArticleInfoByOffset" parameterMap="java.util.Map" resultType="org.hawklithm.backyard.domain.dataobject.ArticleInfoDO">
+    <select id="queryArticleInfoByOffset" parameterType="java.util.Map" resultType="org.hawklithm.backyard.domain.dataobject.ArticleInfoDO">
         SELECT
         <include refid="article_info_field"/>
         from
         <include refid="article_info_table"/>
         limit #{offset},#{length} order by gmt_created desc
     </select>
-    <select id="queryArticleInfoByCode" parameterMap="java.util.Map" resultType="org.hawklithm.backyard.domain.dataobject.ArticleInfoDO">
+    <select id="queryArticleInfoByCode" parameterType="java.util.Map" resultType="org.hawklithm.backyard.domain.dataobject.ArticleInfoDO">
         SELECT
         <include refid="article_info_field"/>
         from
