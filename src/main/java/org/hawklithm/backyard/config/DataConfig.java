@@ -40,7 +40,7 @@ public class DataConfig {
                 "  gmt_created datetime NOT NULL," +
                 "  gmt_modified datetime NOT NULL," +
                 "  sort_id int(11) NOT NULL,"+
-                "  article_id int(11) PRIMARY KEY AUTO_INCREMENT,"+
+                "  article_id int(11) AUTO_INCREMENT,"+
                 "  status tinyint(4) NOT NULL DEFAULT 1,"+
                 "  PRIMARY KEY (article_id)" +
                 ") ENGINE=InnoDB DEFAULT CHARSET=utf8");

@@ -21,7 +21,10 @@ public class ArticleContentDaoImpl implements ArticleContentDAO {
     private ArticleContentMapper articleContentMapper;
     @Override
     public List<ArticleContentDO> queryArticleContentDOListByArticleCode(String articleCode,long creatorId) {
-        return articleContentMapper.queryByArticleCode(articleCode,creatorId);
+        Map<String,Object> params = Maps.newHashMap();
+        params.put("articleCode",articleCode);
+        params.put("articleId",creatorId);
+        return articleContentMapper.queryByArticleCode(params);
     }
 
     @Override

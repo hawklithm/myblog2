@@ -9,7 +9,7 @@ import java.util.Map;
  * Created by bluehawky on 2014/12/20 0020.
  */
 public interface ArticleContentMapper{
-    List<ArticleContentDO> queryByArticleCode(String articleCode,long creatorId);
+    List<ArticleContentDO> queryByArticleCode(Map<String,Object> params);
 
     int saveArticleContent(ArticleContentDO articleContentDO);
 

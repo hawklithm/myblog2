@@ -14,13 +14,13 @@
     <sql id="article_detail_table">
         article_detail
     </sql>
-    <select id="queryByArticleCode" resultType="java.util.List" parameterType="java.lang.String">
+    <select id="queryByArticleCode" resultType="ArticleContentDO" parameterType="java.util.Map">
         select
         <include refid="article_detail_field"/>
         from
         <include refid="article_detail_table"/>
         where
-        article_code = #{articleCode} and creator_id = #{creatorId}
+        article_code = #{articleCode} and article_id = #{articleId}
     </select>
 
     <insert id="saveArticleContent" parameterType="ArticleContentDO">
